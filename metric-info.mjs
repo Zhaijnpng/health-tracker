@@ -1,0 +1,40 @@
+const med=slug=>'https://medlineplus.gov/lab-tests/'+slug+'/';
+const sources={cbc:med('complete-blood-count-cbc'),diff:med('blood-differential'),rbc:med('red-blood-cell-rbc-indices'),liver:med('liver-function-tests'),cmp:med('comprehensive-metabolic-panel-cmp')};
+const definitions={};
+function add(names,text,url,extra=''){for(const name of names.split('|'))definitions[name]={text,url,extra};}
+add('葡萄糖','血液中的葡萄糖是身体的重要能量来源，常用于观察血糖调节情况。',med('blood-glucose-test'),'比较时留意是否空腹，以及采血时间是否相近。');
+add('前白蛋白','肝脏制造的一种血液蛋白，可作为营养及其他临床评估的辅助信息。',med('prealbumin-blood-test'),'炎症等因素也会影响它，不能只靠这一项判断营养好坏。');
+add('丙氨酸氨基转移酶','也称 ALT，主要与肝细胞有关的酶；血中含量可为肝细胞损伤评估提供线索。',med('alt-blood-test'));
+add('天门冬氨酸氨基转移酶','也称 AST，是存在于肝脏、肌肉等组织中的酶。',med('ast-test'),'通常结合 ALT 及其他检查解读，升高并不只来自肝脏。');
+add('碱性磷酸酶','也称 ALP，主要与肝胆系统及骨组织有关的酶。',med('alkaline-phosphatase'),'需要结合其他肝胆或骨代谢检查判断来源。');
+add('γ-谷氨酰转移酶|γ-谷氨酰氨基转移酶','也称 GGT，是肝胆系统评估中常用的一种酶。',med('gamma-glutamyl-transferase-ggt-test'));
+add('总胆红素','胆红素主要来自衰老红细胞的分解，经肝脏处理和排泄；总胆红素反映血中胆红素总量。',med('bilirubin-blood-test'));
+add('直接胆红素','主要指经肝脏结合处理后的胆红素，是胆红素分型的一部分。',med('bilirubin-blood-test'),'通常与总胆红素及其他肝胆项目一起解读。');
+add('总蛋白','血液中白蛋白与球蛋白等蛋白质的总量。',med('total-protein-and-albumin-globulin-a-g-ratio'));
+add('白蛋白','由肝脏制造的主要血液蛋白，帮助维持血管内液体分布并运输物质。',med('albumin-blood-test'));
+add('白球比例','白蛋白与球蛋白的比值，反映两类血液蛋白的相对比例。',med('total-protein-and-albumin-globulin-a-g-ratio'));
+add('胆汁酸','由肝脏生成，参与脂肪消化；血中浓度可辅助评估肝胆处理与排泄情况。','https://www.mayocliniclabs.com/test-catalog/Overview/62234','进食状态可影响结果，比较时应留意采血条件。');
+add('尿素','蛋白质代谢产生的含氮废物，主要经肾脏排出。',med('bun-blood-urea-nitrogen'),'需要结合肌酐等指标解读；尿素和尿素氮是不同的报告表达，数值不能直接混用。');
+add('肌酐','来自肌肉代谢的废物，主要经肾脏过滤；常用于评估肾功能并估算 eGFR。',med('creatinine-test'));
+add('尿酸','嘌呤代谢产生的废物，主要经肾脏排出。',med('uric-acid-test'),'升高可与生成增多或排泄减少有关；仅凭高尿酸数值不能诊断痛风。');
+add('钠','重要电解质，参与体内水分平衡以及神经、肌肉功能。',med('sodium-blood-test'));
+add('钾','重要电解质，参与神经传导、肌肉活动及心脏节律。',med('potassium-blood-test'));
+add('氯','帮助维持体液及酸碱平衡的电解质。',med('chloride-blood-test'));
+add('二氧化碳','生化报告中的总二氧化碳主要反映碳酸氢盐，辅助观察酸碱平衡。',med('carbon-dioxide-co2-in-blood'),'与血气分析中的二氧化碳分压不是同一个指标。');
+add('钙','参与骨骼、神经、肌肉及心脏功能的矿物质；此处记录的是报告所列的血钙。',med('calcium-blood-test'));
+add('磷','通常检测血中磷酸盐，参与骨骼形成和能量代谢。',med('phosphate-in-blood'));
+add('估算肾小球滤过率','也称 eGFR，是根据肌酐等资料计算的肾脏过滤能力估计值。','https://www.niddk.nih.gov/health-information/kidney-disease/chronic-kidney-disease-ckd/tests-diagnosis','这是估计值，需要结合持续时间、尿检等资料，不能凭一次结果判断肾病。');
+add('白细胞计数','单位体积血液中白细胞的总数。白细胞参与身体的免疫防御。',med('white-blood-count-wbc'),'应结合各类白细胞的绝对计数和分类结果一起看。');
+add('红细胞计数','单位体积血液中红细胞的数量，红细胞通过血红蛋白运输氧气。',med('red-blood-cell-rbc-count'));
+add('血红蛋白','红细胞中负责运输氧气的蛋白，这项检测衡量血中血红蛋白的浓度。',sources.cbc);
+add('红细胞比容','也称 Hct，表示红细胞总体积占血液体积的比例。',med('hematocrit-test'),'有的报告用小数，有的用百分比，比较前需确认表达和单位。');
+add('平均红细胞体积','也称 MCV，表示单个红细胞的平均体积。',sources.rbc);
+add('平均血红蛋白量','也称 MCH，表示单个红细胞平均含有的血红蛋白量。',sources.rbc);
+add('平均血红蛋白浓度','也称 MCHC，表示红细胞中血红蛋白的平均浓度。',sources.rbc);
+add('红细胞分布宽度','也称 RDW，反映红细胞大小差异的程度。',med('rdw-red-cell-distribution-width'),'通常结合血红蛋白和 MCV 等项目解读。');
+add('血小板计数','单位体积血液中血小板的数量。血小板参与止血和血凝块形成。',med('platelet-tests'));
+add('血小板平均体积','也称 MPV，表示血小板的平均大小。',med('mpv-blood-test'),'应结合血小板计数及其他资料一起解读。');
+for(const [stem,role,aliases] of [['中性粒细胞','参与对病原体的先天免疫防御','中性分叶核'],['淋巴细胞','包括 B 细胞、T 细胞等，参与免疫应答','淋巴细胞'],['单核细胞','参与病原体和细胞残片的清除及免疫反应','单核细胞'],['嗜酸性粒细胞','参与寄生虫防御、过敏和炎症反应','嗜酸性粒细胞'],['嗜碱性粒细胞','参与过敏和炎症反应','嗜碱性粒细胞']]){add(stem+'%|'+aliases,role+'。此项记录该类白细胞在分类中的比例。',sources.diff,'比例与绝对计数不同；某类细胞比例变化也可能由其他细胞数量改变引起。');add(stem+'计数',role+'。此项记录单位体积血液中的绝对数量。',sources.diff);}
+add('形态不典型淋巴细胞','描述血涂片中淋巴细胞外观与典型形态不同的检验项目。',sources.diff,'属于形态学描述，不等同于某个疾病诊断。需要结合原报告备注与血液专科评估；若单位未写明，请以原报告解释为准。');
+add('乙肝病毒核酸定量(PCR)','检测血液中乙肝病毒 DNA 的量，用于辅助评估病毒复制情况及随访。','https://www.cdc.gov/hepatitis/statistics/surveillanceguidance/docs/viral-hepatitis-surveillance-and-case-management_508.pdf','“<50 IU/mL”表示低于该报告的检测/定量界限，不代表精确的 50 或 0，也不能据此认定病毒已清除。');
+export function metricInfo(name){return definitions[name]||{text:'暂未收录此指标的专属解释。请核对原报告中的全称和单位，并向开单医生或检验科确认含义。',extra:'图表只展示已保存的测量结果，不推断未知项目的医学意义。',url:'https://medlineplus.gov/lab-tests/how-to-understand-your-lab-results/'};}
