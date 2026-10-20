@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {cloud,saveCloud,pullCloud,assertOwner,assertUpload,canUpload,canEdit,loginError} from './cloud.mjs';
+import {cloud,saveCloud,pullCloud,assertOwner,assertUpload,canUpload,canEdit,loginError,validatePassword,passwordError} from './cloud.mjs';
 assert.match(loginError({code:'over_email_send_rate_limit'}),/额度已用完/);
 assert.match(loginError({message:'email rate limit exceeded'}),/每小时仅可发送 2 封/);
 assert.match(loginError({status:429,message:'too many requests'}),/过于频繁/);
@@ -19,3 +19,5 @@ await saveCloud([{date:'2026-01-01',items:[]}],[]);assert.deepEqual(conditions,[
 reply={data:null,error:{code:'PGRST116',message:'revision conflict'}};await assert.rejects(saveCloud([],[]));assert.equal(cloud.dirty,true);assert.equal(stored.size,1);assert.equal(cloud.revision,4);
 cloud.dirty=false;await assert.rejects(pullCloud(),/权限已失效/);assert.equal(cloud.active,false);assert.equal(main.hidden,true);assert.equal(events.at(-1).type,'health-cloud-lock');
 console.log('Cloud checks passed: read-only role, revision lease, conflict draft, permission revocation.');
+
+assert.match(validatePassword('short','short'),/12/);assert.match(validatePassword('long-test-password','other'),/不一致/);assert.equal(validatePassword('long-test-password','long-test-password'),'');assert.match(passwordError({code:'invalid_credentials'}),/邮箱或密码不正确/);assert.match(passwordError({code:'email_not_confirmed'}),/验证邮箱/);console.log('Password validation and auth error checks passed.');
