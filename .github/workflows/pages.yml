@@ -18,6 +18,7 @@ jobs:
           node-version: '22'
       - run: node matrix.test.mjs
       - run: node trends.test.mjs
+      - run: node cloud.test.mjs
       - run: node scripts/build-pages.cjs
       - uses: actions/upload-pages-artifact@v3
         with:
